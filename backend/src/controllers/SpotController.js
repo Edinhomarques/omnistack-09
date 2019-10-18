@@ -6,7 +6,8 @@ module.exports = {
         // pega company, techs e price usando desestruturação
         const {company, techs, price} = req.body;
         const {user_id} = req.headers;
-        
+        console.log(req.body);
+        console.log(req.file);
         const user = await User.findById(user_id);
         if(!user){
             return res.status(400).json({error: 'User does not exists'});
@@ -22,9 +23,10 @@ module.exports = {
         return res.json(spot)
     },
     async index(req, res){
+        //lista os spots a depender das tech usadas
         const { tech } = req.query;
 
-        const spots = await Spot.find({techs: tech});
+        const spots = await Spot.find({ techs: tech });
         return res.json(spots);
 
     }
